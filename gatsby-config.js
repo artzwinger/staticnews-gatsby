@@ -6,7 +6,14 @@ module.exports = {
         title: `Static news`,
         siteUrl: `https://www.yourdomain.tld`
     },
-    plugins: ["gatsby-plugin-image", "gatsby-plugin-sitemap", "gatsby-plugin-sharp", "gatsby-transformer-sharp", `source-plugin`,
+    plugins: ["gatsby-plugin-image", "gatsby-plugin-sitemap", "gatsby-plugin-sharp", "gatsby-transformer-sharp",
+        {
+            resolve: `source-plugin`,
+            options: {
+                backendUrl: 'http://localhost',
+                backendWebsiteCode: 'local',
+            },
+        },
         {
             resolve: 'gatsby-plugin-manifest',
             options: {
