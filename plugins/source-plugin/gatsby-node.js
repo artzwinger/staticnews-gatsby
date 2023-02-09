@@ -48,7 +48,7 @@ exports.createSchemaCustomization = ({schema, actions}) => {
         name: 'Post',
         interfaces: ['Node'],
         fields: {
-            remote_file: {
+            featured_image: {
                 type: `File`,
                 extensions: {
                     link: {
@@ -126,7 +126,6 @@ exports.onCreateNode = async ({
     // transform remote file nodes using Gatsby sharp plugins
     // because onCreateNode is called for all nodes, verify that you are only running this code on nodes created by your plugin
     if (node.internal.type === POST_NODE_TYPE) {
-        console.log(node.image_url)
         if (node.image_url) {
             // create a FileNode in Gatsby that gatsby-transformer-sharp will create optimized images for
             const fileNode = await createRemoteFileNode({
