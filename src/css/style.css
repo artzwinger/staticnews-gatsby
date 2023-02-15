@@ -36,7 +36,11 @@
 }
 
 .blog-post {
-    @apply prose mx-auto my-10;
+    @apply prose-sm xl:prose-xl sm:prose-sm md:prose mx-auto my-10;
+}
+
+.post-img-container {
+    @apply mx-auto text-center;
 }
 
 .posts {

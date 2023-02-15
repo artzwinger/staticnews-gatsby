@@ -25,18 +25,19 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                     <h1 itemProp="headline">{parse(post.title)}</h1>
 
                     <p>{post.date}</p>
-
-                    {/* if we have a featured image for this post let's display it */}
-                    {featured_image?.data && (
-                        <GatsbyImage
-                            width={586}
-                            height={390}
-                            layout="constrained"
-                            image={featured_image.data}
-                            alt={featured_image.alt}
-                            style={{marginBottom: 50}}
-                        />
-                    )}
+                    <div className="post-img-container">
+                        {/* if we have a featured image for this post let's display it */}
+                        {featured_image?.data && (
+                            <GatsbyImage
+                                width={586}
+                                height={390}
+                                layout="constrained"
+                                image={featured_image.data}
+                                alt={featured_image.alt}
+                                style={{marginBottom: 50}}
+                            />
+                        )}
+                    </div>
                 </header>
 
                 {!!post.content && (
