@@ -3,8 +3,24 @@
 @tailwind utilities;
 @tailwind typography;
 
+.global-wrapper {
+    @apply container mx-auto py-5 shadow-2xl px-20;
+}
+
+.global-header {
+    @apply bg-white py-5;
+}
+
+.global-footer {
+    @apply pt-10;
+}
+
+.main-heading, .header-link-home {
+    @apply uppercase;
+}
+
 .blog-post {
-    @apply prose;
+    @apply prose mx-auto my-10;
 }
 
 .posts {
