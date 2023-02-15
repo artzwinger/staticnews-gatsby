@@ -19,6 +19,22 @@
     @apply uppercase;
 }
 
+.list-nav {
+    @apply flex gap-5 justify-between w-full;
+}
+
+.archive-nav {
+    @apply max-w-2xl mx-auto py-10;
+}
+
+.primary-button {
+    @apply inline-block;
+}
+
+.primary-button a {
+    @apply inline-block px-5 py-2 border-2 border-red-700 hover:bg-red-700 hover:text-white text-red-700;
+}
+
 .blog-post {
     @apply prose mx-auto my-10;
 }

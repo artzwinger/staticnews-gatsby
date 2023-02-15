@@ -47,6 +47,9 @@ const BlogIndex = ({
                                 <header>
                                     {featured_image?.data && (
                                         <GatsbyImage
+                                            width={289}
+                                            height={192}
+                                            layout="constrained"
                                             image={featured_image.data}
                                             alt={featured_image.alt}
                                             style={{marginBottom: 50}}
@@ -65,14 +68,17 @@ const BlogIndex = ({
                     )
                 })}
             </div>
-
-            {previousPagePath && (
-                <>
-                    <Link to={previousPagePath}>Previous page</Link>
-                    <br/>
-                </>
-            )}
-            {nextPagePath && <Link to={nextPagePath}>Next page</Link>}
+            <div className="archive-nav">
+                <div className="list-nav">
+                    {previousPagePath && (
+                        <div className="primary-button">
+                            <Link to={previousPagePath}>Предыдущая страница</Link>
+                        </div>
+                    )}
+                    {nextPagePath &&
+                        <div className="primary-button"><Link to={nextPagePath}>Следующая страница</Link></div>}
+                </div>
+            </div>
         </Layout>
     )
 }
@@ -92,7 +98,9 @@ export const pageQuery = graphql`
             gatsbyImageData(
               quality: 100
               placeholder: TRACED_SVG
-              layout: FULL_WIDTH
+              layout: CONSTRAINED
+              width: 290
+              height: 192
             )
           }
         }

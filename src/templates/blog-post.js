@@ -29,6 +29,9 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                     {/* if we have a featured image for this post let's display it */}
                     {featured_image?.data && (
                         <GatsbyImage
+                            width={586}
+                            height={390}
+                            layout="constrained"
                             image={featured_image.data}
                             alt={featured_image.alt}
                             style={{marginBottom: 50}}
@@ -41,32 +44,20 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                 )}
             </article>
 
-            <nav className="blog-post-nav">
-                <ul
-                    style={{
-                        display: `flex`,
-                        flexWrap: `wrap`,
-                        justifyContent: `space-between`,
-                        listStyle: `none`,
-                        padding: 0,
-                    }}
-                >
-                    <li>
-                        {previous && (
-                            <Link to={`/${previous.slug}`} rel="prev">
-                                ← {parse(previous.title)}
-                            </Link>
-                        )}
-                    </li>
+            <nav className="list-nav">
+                {previous && (<div className="primary-button">
+                        <Link to={`/${previous.slug}`} rel="prev">
+                            ← {parse(previous.title)}
+                        </Link>
+                    </div>
+                )}
 
-                    <li>
-                        {next && (
-                            <Link to={`/${next.slug}`} rel="next">
-                                {parse(next.title)} →
-                            </Link>
-                        )}
-                    </li>
-                </ul>
+                {next && (<div className="primary-button">
+                        <Link to={`/${next.slug}`} rel="next">
+                            {parse(next.title)} →
+                        </Link>
+                    </div>
+                )}
             </nav>
         </Layout>
     )
@@ -91,7 +82,9 @@ export const pageQuery = graphql`
           gatsbyImageData(
             quality: 100
             placeholder: TRACED_SVG
-            layout: FULL_WIDTH
+            layout: CONSTRAINED
+            width: 600
+            height: 400
           )
         }
       }

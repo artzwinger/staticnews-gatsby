@@ -11,6 +11,6 @@ export AWS_BUCKET_NAME=$AWS_BUCKET_NAME
 #git add *
 #git commit -am "add approved articles"
 #git push origin master
-#npm run build
+npm run build
 npm run deploy
 npm run deploy # sometimes some files are not uploaded
