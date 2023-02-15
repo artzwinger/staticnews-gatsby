@@ -1,5 +1,6 @@
 import React from "react"
 import {Link} from "gatsby"
+import '../css/style.css'
 
 const Layout = ({isHomePage, children}) => {
     return (
