@@ -99,8 +99,9 @@ export const pageQuery = graphql`
               quality: 100
               placeholder: DOMINANT_COLOR
               layout: CONSTRAINED
-              width: 290
+              width: 289
               height: 192
+              formats: [WEBP]
             )
           }
         }

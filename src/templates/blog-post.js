@@ -82,10 +82,11 @@ export const pageQuery = graphql`
         childImageSharp {
           gatsbyImageData(
             quality: 100
-            placeholder: BLURRED
-            layout: DOMINANT_COLOR
-            width: 600
-            height: 400
+            placeholder: DOMINANT_COLOR
+            layout: CONSTRAINED
+            width: 586
+            height: 390
+            formats: [WEBP]
           )
         }
       }
