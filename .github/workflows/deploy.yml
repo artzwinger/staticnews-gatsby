@@ -1,0 +1,43 @@
+name: Deploy
+
+on:
+    #  schedule:
+    #    - cron: '35 13 * * 3'
+    workflow_dispatch: ~
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: 18.14.0
+            - name: Caching
+              id: cache-build
+              uses: actions/cache@v2
+              with:
+                  path: |
+                      .cache
+                      node_modules
+                  key: ${{ runner.os }}-fastfastnews-deploy-${{ github.run_id }}
+                  restore-keys: |
+                      ${{ runner.os }}-fastfastnews-deploy-
+            - name: Install dependencies
+              run: npm install
+            - name: Build
+              run: npm run build
+            - name: Set AWS credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+                  aws-bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
+            - name: Deploy to S3
+              run: gulp deploy
+              env:
+                  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+                  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
