@@ -1,8 +1,8 @@
 name: Deploy
 
 on:
-    #  schedule:
-    #    - cron: '35 13 * * 3'
+    schedule:
+        - cron: '*/10 * * * *'
     workflow_dispatch: ~
 jobs:
     build:
