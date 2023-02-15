@@ -10,8 +10,7 @@ import PropTypes from "prop-types"
 import {Helmet} from "react-helmet"
 
 const Seo = ({description, lang, meta, title}) => {
-    const metaDescription = description || 'Default description'
-    const defaultTitle = 'Default title'
+    const metaDescription = description || 'Новости'
 
     return (
         <Helmet
@@ -19,7 +18,7 @@ const Seo = ({description, lang, meta, title}) => {
                 lang,
             }}
             title={title}
-            titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+            titleTemplate={`%s`}
             meta={[
                 {
                     name: `description`,

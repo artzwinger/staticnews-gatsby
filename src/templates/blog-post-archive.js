@@ -11,11 +11,12 @@ const BlogIndex = ({
                        pageContext: {nextPagePath, previousPagePath},
                    }) => {
     const posts = data.allPost.nodes
+    const title = data.site.siteMetadata.title
 
     if (!posts.length) {
         return (
             <Layout isHomePage>
-                <Seo title="All posts"/>
+                <Seo title={`Все новости | ${title}`}/>
                 <p>
                     No blog posts found. Add posts to your WordPress site and they'll
                     appear here!
@@ -26,7 +27,7 @@ const BlogIndex = ({
 
     return (
         <Layout isHomePage>
-            <Seo title="All posts"/>
+            <Seo title={`Все новости | ${title}`}/>
 
             <div className="posts">
                 {posts.map(post => {
@@ -87,6 +88,11 @@ export default BlogIndex
 
 export const pageQuery = graphql`
   query PostArchive($offset: Int!, $postsPerPage: Int!) {
+    site {
+      siteMetadata {
+        title
+      }
+    }
     allPost(sort: {foreign_created_at: DESC}, limit: $postsPerPage, skip: $offset) {
       nodes {
         description
