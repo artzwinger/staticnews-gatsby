@@ -8,6 +8,7 @@ const fetch = require('node-fetch')
  */
 
 const POST_NODE_TYPE = `Post`
+const TAG_NODE_TYPE = `Tag`
 
 // helper function for creating nodes
 const createNodeFromData = (item, nodeType, helpers) => {
@@ -45,6 +46,15 @@ exports.onPreInit = () => console.log("Loaded source-plugin")
 exports.createSchemaCustomization = ({schema, actions}) => {
     const {createTypes} = actions
     createTypes(schema.buildObjectType({
+        name: 'Tag',
+        interfaces: ['Node'],
+        fields: {
+            name: {
+                type: `String`
+            },
+        }
+    }))
+    createTypes(schema.buildObjectType({
         name: 'Post',
         interfaces: ['Node'],
         fields: {
@@ -53,6 +63,14 @@ exports.createSchemaCustomization = ({schema, actions}) => {
                 extensions: {
                     link: {
                         from: `fields.image_file_id`,
+                    },
+                },
+            },
+            foreign_tags: {
+                type: [`Tag`],
+                extensions: {
+                    link: {
+                        by: `name`,
                     },
                 },
             },
@@ -105,10 +123,12 @@ exports.sourceNodes = async function sourceNodes(
 
     // touch nodes to ensure they aren't garbage collected
     getNodesByType(POST_NODE_TYPE).forEach(node => touchNode(node))
+    getNodesByType(TAG_NODE_TYPE).forEach(node => touchNode(node))
 
-    data.articles.forEach(post =>
+    data.articles.forEach(post => {
+        post.foreign_tags.forEach(tag => createNodeFromData({name: tag}, TAG_NODE_TYPE, helpers))
         createNodeFromData(post, POST_NODE_TYPE, helpers)
-    )
+    })
 }
 
 /**
@@ -138,7 +158,7 @@ exports.onCreateNode = async ({
             })
 
             if (fileNode) {
-                createNodeField({ node, name: `image_file_id`, value: fileNode.id })
+                createNodeField({node, name: `image_file_id`, value: fileNode.id})
             }
         }
     }
