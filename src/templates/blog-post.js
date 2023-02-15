@@ -23,8 +23,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
             >
                 <header>
                     <h1 itemProp="headline">{parse(post.title)}</h1>
-
-                    <p>{post.date}</p>
+                    <small>{post.foreign_created_at}</small>
                     <div className="post-img-container">
                         {/* if we have a featured image for this post let's display it */}
                         {featured_image?.data && (
@@ -77,7 +76,7 @@ export const pageQuery = graphql`
       content
       title
       description
-      foreign_created_at(formatString: "MMMM DD, YYYY")
+      foreign_created_at(formatString: "MMMM DD, YYYY", locale: "ru")
       featured_image {
         childImageSharp {
           gatsbyImageData(

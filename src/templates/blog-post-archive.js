@@ -8,15 +8,18 @@ import {GatsbyImage} from "gatsby-plugin-image";
 
 const BlogIndex = ({
                        data,
-                       pageContext: {nextPagePath, previousPagePath},
+                       pageContext: {nextPagePath, previousPagePath, page},
                    }) => {
     const posts = data.allPost.nodes
-    const title = data.site.siteMetadata.title
-
+    const defaultTitle = data.site.siteMetadata.title
+    let title = `Все новости | ${defaultTitle}`
+    if (page > 1) {
+        title = `Страница ${page} | ${title}`
+    }
     if (!posts.length) {
         return (
             <Layout isHomePage>
-                <Seo title={`Все новости | ${title}`}/>
+                <Seo title={title}/>
                 <p>
                     No blog posts found. Add posts to your WordPress site and they'll
                     appear here!
@@ -27,7 +30,7 @@ const BlogIndex = ({
 
     return (
         <Layout isHomePage>
-            <Seo title={`Все новости | ${title}`}/>
+            <Seo title={title}/>
 
             <div className="posts">
                 {posts.map(post => {
@@ -97,7 +100,7 @@ export const pageQuery = graphql`
       nodes {
         description
         slug
-        foreign_created_at(formatString: "MMMM DD, YYYY")
+        foreign_created_at(formatString: "MMMM DD, YYYY", locale: "ru")
         title
         featured_image {
           childImageSharp {
