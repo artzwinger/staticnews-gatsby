@@ -6,3 +6,18 @@
 .blog-post {
     @apply prose;
 }
+
+.posts {
+    @apply p-5 md:p-0 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 items-start;
+}
+
+.posts .post {
+    @apply p-5 transform duration-300 hover:-translate-y-1 cursor-pointer hover:shadow-2xl;
+}
+
+.post-list-item h2 {
+    @apply text-xl font-bold;
+}
+.post-list-item small {
+    @apply text-xs my-2 inline-block;
+}
