@@ -107,6 +107,7 @@ export const pageQuery = graphql`
         title
         foreign_tags {
           name
+          slug
         }
         featured_image {
           childImageSharp {
