@@ -20,6 +20,7 @@ exports.createPages = async gatsbyUtilities => {
 
     // If there are posts, create pages for them
     await createIndividualBlogPostPages({ posts, gatsbyUtilities })
+    await createIndividualBlogPostPagesAmp({ posts, gatsbyUtilities })
     await createBlogPostArchive({ posts, gatsbyUtilities })
     for (const tag of tags) {
         await createTagPage({tag: tag.tag, gatsbyUtilities})
