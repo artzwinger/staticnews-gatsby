@@ -8,13 +8,13 @@ import {GatsbyImage} from "gatsby-plugin-image";
 
 const BlogIndex = ({
                        data,
-                       pageContext: {nextPagePath, previousPagePath, page},
+                       pageContext: {nextPagePath, previousPagePath, page, tag},
                    }) => {
     const posts = data.allPost.nodes
     const defaultTitle = data.site.siteMetadata.title
-    let title = `Все новости | ${defaultTitle}`
+    let title = `${tag.name} | ${defaultTitle}`
     if (page > 1) {
-        title = `Страница ${page} | ${title}`
+        title = `Страница ${page} | ${tag.name} | ${title}`
     }
     if (!posts.length) {
         return (
@@ -59,11 +59,6 @@ const BlogIndex = ({
                                             style={{marginBottom: 50}}
                                         />
                                     )}
-                                    {post.foreign_tags.map((tag) => <div className="tag-link">
-                                        <Link className="" to={`/${tag.slug}/`}>
-                                            {tag.name}
-                                        </Link>
-                                    </div>)}
                                     <h2>
                                         <Link to={`/${post.slug}`} itemProp="url">
                                             <span itemProp="headline">{parse(title)}</span>
@@ -95,13 +90,16 @@ const BlogIndex = ({
 export default BlogIndex
 
 export const pageQuery = graphql`
-  query PostArchive($offset: Int!, $postsPerPage: Int!) {
+  query TagPage($offset: Int!, $postsPerPage: Int!, $tagSlug: String!) {
     site {
       siteMetadata {
         title
       }
     }
-    allPost(sort: {foreign_created_at: DESC}, limit: $postsPerPage, skip: $offset) {
+    allPost(
+      sort: {foreign_created_at: DESC}, limit: $postsPerPage, skip: $offset,
+      filter: {foreign_tags: {elemMatch: {slug: {eq: $tagSlug}}}}
+    ) {
       nodes {
         description
         slug
@@ -109,7 +107,6 @@ export const pageQuery = graphql`
         title
         foreign_tags {
           name
-          slug
         }
         featured_image {
           childImageSharp {

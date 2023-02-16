@@ -52,6 +52,15 @@ exports.createSchemaCustomization = ({schema, actions}) => {
             name: {
                 type: `String`
             },
+            posts: {
+                type: [`Post`],
+                extensions: {
+                    link: {
+                        by: `foreign_tags.elemMatch.name`,
+                        from: 'name',
+                    },
+                },
+            }
         }
     }))
     createTypes(schema.buildObjectType({

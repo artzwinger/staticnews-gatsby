@@ -22,6 +22,11 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                 itemType="http://schema.org/Article"
             >
                 <header>
+                    {post.foreign_tags.map((tag) => <div className="tag-link">
+                        <Link className="" to={`/${tag.slug}/`}>
+                            {tag.name}
+                        </Link>
+                    </div>)}
                     <h1 itemProp="headline">{parse(post.title)}</h1>
                     <small>{post.foreign_created_at}</small>
                     <div className="post-img-container">
@@ -79,6 +84,7 @@ export const pageQuery = graphql`
       foreign_created_at(formatString: "MMMM DD, YYYY", locale: "ru")
       foreign_tags {
         name
+        slug
       }
       featured_image {
         childImageSharp {
