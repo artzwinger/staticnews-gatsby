@@ -59,6 +59,11 @@ const BlogIndex = ({
                                             style={{marginBottom: 50}}
                                         />
                                     )}
+                                    {post.foreign_tags.map((tag) => <div className="tag-link">
+                                        <Link className="" to={`/${tag.slug}/`}>
+                                            {tag.name}
+                                        </Link>
+                                    </div>)}
                                     <h2>
                                         <Link to={`/${post.slug}`} itemProp="url">
                                             <span itemProp="headline">{parse(title)}</span>
