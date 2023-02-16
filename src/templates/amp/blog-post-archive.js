@@ -53,7 +53,6 @@ const BlogIndex = ({
                                         <GatsbyImage
                                             width={289}
                                             height={192}
-                                            layout="constrained"
                                             image={featured_image.data}
                                             alt={featured_image.alt}
                                             style={{marginBottom: 5}}

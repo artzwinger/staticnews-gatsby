@@ -38,7 +38,6 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                             <GatsbyImage
                                 width={586}
                                 height={390}
-                                layout="constrained"
                                 image={featured_image.data}
                                 alt={featured_image.alt}
                                 style={{marginBottom: 20}}
