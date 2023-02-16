@@ -126,7 +126,8 @@ exports.sourceNodes = async function sourceNodes(
     getNodesByType(TAG_NODE_TYPE).forEach(node => touchNode(node))
 
     data.articles.forEach(post => {
-        post.foreign_tags.forEach(tag => createNodeFromData({name: tag}, TAG_NODE_TYPE, helpers))
+        post.foreign_tags.forEach(tag => createNodeFromData(tag, TAG_NODE_TYPE, helpers))
+        post.foreign_tags = post.foreign_tags.map((tag) => tag.name)
         createNodeFromData(post, POST_NODE_TYPE, helpers)
     })
 }

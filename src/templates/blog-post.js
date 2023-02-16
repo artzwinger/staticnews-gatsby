@@ -77,6 +77,9 @@ export const pageQuery = graphql`
       title
       description
       foreign_created_at(formatString: "MMMM DD, YYYY", locale: "ru")
+      foreign_tags {
+        name
+      }
       featured_image {
         childImageSharp {
           gatsbyImageData(
