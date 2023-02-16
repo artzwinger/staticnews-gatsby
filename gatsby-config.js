@@ -21,5 +21,16 @@ module.exports = {
                 "icon": "src/images/icon.png"
             }
         },
+        {
+            resolve: `gatsby-plugin-amp`,
+            options: {
+                canonicalBaseUrl: 'https://www.fastfastnews.ru/',
+                components: [],
+                excludedPaths: ['/404*', '/'],
+                pathIdentifier: '/amp/',
+                relAmpHtmlPattern: '{{canonicalBaseUrl}}{{pathIdentifier}}{{pathname}}',
+                useAmpClientIdApi: true,
+            },
+        },
     ]
 };

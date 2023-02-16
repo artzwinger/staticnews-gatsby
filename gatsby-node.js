@@ -32,22 +32,25 @@ exports.createPages = async gatsbyUtilities => {
 const createIndividualBlogPostPages = async ({ posts, gatsbyUtilities }) =>
     Promise.all(
         posts.map(({ previous, post, next }) =>
-            // See https://www.gatsbyjs.com/docs/actions#createPage for more info
             gatsbyUtilities.actions.createPage({
                 path: `/${post.slug}/`,
-
-                // use the blog post template as the page component
                 component: path.resolve(`./src/templates/blog-post.js`),
-
-                // `context` is available in the template as a prop and
-                // as a variable in GraphQL.
                 context: {
-                    // we need to add the post id here
-                    // so our blog post template knows which blog post
-                    // the current page is (when you open it in a browser)
                     id: post.id,
-
-                    // We also use the next and previous id's to query them and add links!
+                    previousPostId: previous ? previous.id : null,
+                    nextPostId: next ? next.id : null,
+                },
+            })
+        )
+    )
+const createIndividualBlogPostPagesAmp = async ({ posts, gatsbyUtilities }) =>
+    Promise.all(
+        posts.map(({ previous, post, next }) =>
+            gatsbyUtilities.actions.createPage({
+                path: `/amp/${post.slug}/`,
+                component: path.resolve(`./src/templates/amp/blog-post.js`),
+                context: {
+                    id: post.id,
                     previousPostId: previous ? previous.id : null,
                     nextPostId: next ? next.id : null,
                 },
@@ -70,39 +73,39 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
 
             const getPagePath = page => {
                 if (page > 0 && page <= totalPages) {
-                    // Since our homepage is our blog page
-                    // we want the first page to be "/" and any additional pages
-                    // to be numbered.
-                    // "/blog/2" for example
                     return page === 1 ? `/` : `/${page}/`
                 }
-
                 return null
             }
 
-            // createPage is an action passed to createPages
-            // See https://www.gatsbyjs.com/docs/actions#createPage for more info
+            const getAmpPagePath = page => {
+                if (page > 0 && page <= totalPages) {
+                    return page === 1 ? `/amp/` : `/amp/${page}/`
+                }
+                return null
+            }
+
             await gatsbyUtilities.actions.createPage({
                 path: getPagePath(pageNumber),
-
-                // use the blog post archive template as the page component
                 component: path.resolve(`./src/templates/blog-post-archive.js`),
-
-                // `context` is available in the template as a prop and
-                // as a variable in GraphQL.
                 context: {
-                    // the index of our loop is the offset of which posts we want to display
-                    // so for page 1, 0 * 10 = 0 offset, for page 2, 1 * 10 = 10 posts offset,
-                    // etc
                     offset: index * postsPerPage,
-
                     page: pageNumber,
-
-                    // We need to tell the template how many posts to display too
                     postsPerPage,
-
                     nextPagePath: getPagePath(pageNumber + 1),
                     previousPagePath: getPagePath(pageNumber - 1),
+                },
+            })
+            // amp
+            await gatsbyUtilities.actions.createPage({
+                path: getAmpPagePath(pageNumber),
+                component: path.resolve(`./src/templates/amp/blog-post-archive.js`),
+                context: {
+                    offset: index * postsPerPage,
+                    page: pageNumber,
+                    postsPerPage,
+                    nextPagePath: getAmpPagePath(pageNumber + 1),
+                    previousPagePath: getAmpPagePath(pageNumber - 1),
                 },
             })
         })
@@ -122,6 +125,14 @@ async function createTagPage({ tag, gatsbyUtilities }) {
             const getPagePath = page => {
                 if (page > 0 && page <= totalPages) {
                     return page === 1 ? `/${tag.slug}/` : `/${tag.slug}/${page}/`
+                }
+
+                return null
+            }
+
+            const getAmpPagePath = page => {
+                if (page > 0 && page <= totalPages) {
+                    return page === 1 ? `/amp/${tag.slug}/` : `/amp/${tag.slug}/${page}/`
                 }
 
                 return null
@@ -148,6 +159,28 @@ async function createTagPage({ tag, gatsbyUtilities }) {
 
                     nextPagePath: getPagePath(pageNumber + 1),
                     previousPagePath: getPagePath(pageNumber - 1),
+                },
+            })
+            // amp
+            await gatsbyUtilities.actions.createPage({
+                path: getAmpPagePath(pageNumber),
+
+                // use the blog post archive template as the page component
+                component: path.resolve(`./src/templates/amp/tag-page.js`),
+
+                context: {
+                    offset: index * postsPerPage,
+
+                    tag,
+
+                    page: pageNumber,
+
+                    // We need to tell the template how many posts to display too
+                    postsPerPage,
+                    tagSlug: tag.slug,
+
+                    nextPagePath: getAmpPagePath(pageNumber + 1),
+                    previousPagePath: getAmpPagePath(pageNumber - 1),
                 },
             })
         })
