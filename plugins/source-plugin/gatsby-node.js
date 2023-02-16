@@ -67,6 +67,12 @@ exports.createSchemaCustomization = ({schema, actions}) => {
         name: 'Post',
         interfaces: ['Node'],
         fields: {
+            source_link: {
+                type: 'String',
+            },
+            author: {
+                type: 'String',
+            },
             featured_image: {
                 type: `File`,
                 extensions: {

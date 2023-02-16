@@ -32,7 +32,7 @@ const Layout = ({isHomePage, children}) => {
                     </Link>
                 )}
                 <div className="header-tags">
-                    {tags.map((tag) => <div className="tag-link">
+                    {tags.map((tag) => <div className="tag-link" key={`head-tag-link-${tag.slug}`}>
                         <Link className="" to={`/${tag.slug}/`}>
                             {tag.name}
                         </Link>

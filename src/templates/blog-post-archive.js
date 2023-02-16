@@ -56,14 +56,16 @@ const BlogIndex = ({
                                             layout="constrained"
                                             image={featured_image.data}
                                             alt={featured_image.alt}
-                                            style={{marginBottom: 50}}
+                                            style={{marginBottom: 5}}
                                         />
                                     )}
-                                    {post.foreign_tags.map((tag) => <div className="tag-link">
-                                        <Link className="" to={`/${tag.slug}/`}>
-                                            {tag.name}
-                                        </Link>
-                                    </div>)}
+                                    <div className="archive-post-tag-links">
+                                        {post.foreign_tags.map((tag) => <div className="tag-link">
+                                            <Link className="" to={`/${tag.slug}/`}>
+                                                {tag.name}
+                                            </Link>
+                                        </div>)}
+                                    </div>
                                     <h2>
                                         <Link to={`/${post.slug}`} itemProp="url">
                                             <span itemProp="headline">{parse(title)}</span>
@@ -92,9 +94,9 @@ const BlogIndex = ({
     )
 }
 
-export default BlogIndex
+    export default BlogIndex
 
-export const pageQuery = graphql`
+    export const pageQuery = graphql`
   query PostArchive($offset: Int!, $postsPerPage: Int!) {
     site {
       siteMetadata {

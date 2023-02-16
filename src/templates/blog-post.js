@@ -1,5 +1,5 @@
 import React from "react"
-import {Link, graphql} from "gatsby"
+import {graphql, Link} from "gatsby"
 import {GatsbyImage} from "gatsby-plugin-image"
 import parse from "html-react-parser"
 
@@ -22,13 +22,18 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                 itemType="http://schema.org/Article"
             >
                 <header>
-                    {post.foreign_tags.map((tag) => <div className="tag-link">
-                        <Link className="" to={`/${tag.slug}/`}>
-                            {tag.name}
-                        </Link>
-                    </div>)}
                     <h1 itemProp="headline">{parse(post.title)}</h1>
-                    <small>{post.foreign_created_at}</small>
+                    <div className="post-info">
+                        <h6 itemProp="author">{parse(post.author)}</h6>
+                        <small itemProp="datePublished">{post.foreign_created_at}</small>
+                        <div className="post-tag-links">
+                            {post.foreign_tags.map((tag) => <div className="tag-link" key={`post-tag-link-${tag.slug}`}>
+                                <Link className="" to={`/${tag.slug}/`}>
+                                    {tag.name}
+                                </Link>
+                            </div>)}
+                        </div>
+                    </div>
                     <div className="post-img-container">
                         {/* if we have a featured image for this post let's display it */}
                         {featured_image?.data && (
@@ -38,7 +43,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                                 layout="constrained"
                                 image={featured_image.data}
                                 alt={featured_image.alt}
-                                style={{marginBottom: 50}}
+                                style={{marginBottom: 20}}
                             />
                         )}
                     </div>
@@ -47,6 +52,14 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                 {!!post.content && (
                     <section itemProp="articleBody">{parse(post.content)}</section>
                 )}
+
+                {post.source_link &&
+                    <div className="source-link">
+                        <Link to={post.source_link}>
+                            Источник: {post.source_link}
+                        </Link>
+                    </div>
+                }
             </article>
 
             <nav className="list-nav">
@@ -86,6 +99,8 @@ export const pageQuery = graphql`
         name
         slug
       }
+      source_link
+      author
       featured_image {
         childImageSharp {
           gatsbyImageData(

@@ -4,11 +4,11 @@
 @tailwind typography;
 
 .global-wrapper {
-    @apply container mx-auto py-5 shadow-2xl px-20;
+    @apply container mx-auto py-5 shadow-2xl px-5 md:px-20;
 }
 
 .global-header {
-    @apply bg-white py-5;
+    @apply bg-white py-5 flex flex-row gap-5 items-center;
 }
 
 .global-footer {
@@ -17,6 +17,14 @@
 
 .main-heading, .header-link-home {
     @apply uppercase;
+}
+
+.archive-post-tag-links {
+    @apply my-2;
+}
+
+.blog-post h1 {
+    @apply mb-5;
 }
 
 .list-nav {
@@ -37,6 +45,23 @@
 
 .blog-post {
     @apply prose-sm xl:prose-xl sm:prose-sm md:prose mx-auto my-10;
+}
+
+.post-info {
+    @apply mb-10 flex flex-col gap-2;
+}
+
+.post-info small {
+
+}
+.header-tags {
+    @apply flex flex-wrap gap-2;
+}
+.post-tag-links {
+    @apply flex gap-2;
+}
+.tag-link a {
+    @apply no-underline inline-block px-2 py-1 border-2 border-red-700 hover:bg-red-700 hover:text-white text-red-700;
 }
 
 .post-img-container {
