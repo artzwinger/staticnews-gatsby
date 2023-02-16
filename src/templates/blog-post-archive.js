@@ -46,7 +46,7 @@ const BlogIndex = ({
                             <article
                                 className="post-list-item"
                                 itemScope
-                                itemType="http://schema.org/Article"
+                                itemType="http://schema.org/NewsArticle"
                             >
                                 <header>
                                     {featured_image?.data && (
@@ -71,7 +71,7 @@ const BlogIndex = ({
                                             <span itemProp="headline">{parse(title)}</span>
                                         </Link>
                                     </h2>
-                                    <small>{post.foreign_created_at}</small>
+                                    <small itemProp="datePublished">{post.foreign_created_at}</small>
                                 </header>
                                 <section itemProp="description">{parse(post.description)}</section>
                             </article>

@@ -19,7 +19,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
             <article
                 className="blog-post"
                 itemScope
-                itemType="http://schema.org/Article"
+                itemType="http://schema.org/NewsArticle"
             >
                 <header>
                     <h1 itemProp="headline">{parse(post.title)}</h1>
