@@ -34,7 +34,7 @@ const createIndividualBlogPostPages = async ({ posts, gatsbyUtilities }) =>
     Promise.all(
         posts.map(({ previous, post, next }) =>
             gatsbyUtilities.actions.createPage({
-                path: `/${post.slug}/`,
+                path: `${post.slug}`,
                 component: path.resolve(`./src/templates/blog-post.js`),
                 context: {
                     id: post.id,
@@ -48,7 +48,7 @@ const createIndividualBlogPostPagesAmp = async ({ posts, gatsbyUtilities }) =>
     Promise.all(
         posts.map(({ previous, post, next }) =>
             gatsbyUtilities.actions.createPage({
-                path: `/amp/${post.slug}/`,
+                path: `amp/${post.slug}`,
                 component: path.resolve(`./src/templates/amp/blog-post.js`),
                 context: {
                     id: post.id,
@@ -74,14 +74,14 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
 
             const getPagePath = page => {
                 if (page > 0 && page <= totalPages) {
-                    return page === 1 ? `/` : `/${page}/`
+                    return page === 1 ? `/` : `${page}`
                 }
                 return null
             }
 
             const getAmpPagePath = page => {
                 if (page > 0 && page <= totalPages) {
-                    return page === 1 ? `/amp/` : `/amp/${page}/`
+                    return page === 1 ? `amp` : `amp/${page}`
                 }
                 return null
             }
@@ -125,7 +125,7 @@ async function createTagPage({ tag, gatsbyUtilities }) {
 
             const getPagePath = page => {
                 if (page > 0 && page <= totalPages) {
-                    return page === 1 ? `/${tag.slug}/` : `/${tag.slug}/${page}/`
+                    return page === 1 ? `${tag.slug}` : `${tag.slug}/${page}`
                 }
 
                 return null
@@ -133,7 +133,7 @@ async function createTagPage({ tag, gatsbyUtilities }) {
 
             const getAmpPagePath = page => {
                 if (page > 0 && page <= totalPages) {
-                    return page === 1 ? `/amp/${tag.slug}/` : `/amp/${tag.slug}/${page}/`
+                    return page === 1 ? `amp/${tag.slug}` : `amp/${tag.slug}/${page}`
                 }
 
                 return null

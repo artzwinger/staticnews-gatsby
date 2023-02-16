@@ -69,13 +69,13 @@ const BlogIndex = ({
                                     </amp-img>
                                     <div className="archive-post-tag-links">
                                         {post.foreign_tags.map((tag) => <div className="tag-link">
-                                            <Link className="" to={`/${tag.slug}/`}>
+                                            <Link className="" to={`/amp/${tag.slug}/`}>
                                                 {tag.name}
                                             </Link>
                                         </div>)}
                                     </div>
                                     <h2>
-                                        <Link to={`/${post.slug}`} itemProp="url">
+                                        <Link to={`/amp/${post.slug}/`} itemProp="url">
                                             <span itemProp="headline">{parse(title)}</span>
                                         </Link>
                                     </h2>

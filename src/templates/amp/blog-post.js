@@ -27,7 +27,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                         <small itemProp="datePublished">{post.foreign_created_at}</small>
                         <div className="post-tag-links">
                             {post.foreign_tags.map((tag) => <div className="tag-link" key={`post-tag-link-${tag.slug}`}>
-                                <Link className="" to={`/${tag.slug}/`}>
+                                <Link className="" to={`/amp/${tag.slug}/`}>
                                     {tag.name}
                                 </Link>
                             </div>)}
@@ -69,14 +69,14 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
 
             <nav className="list-nav">
                 {previous && (<div className="primary-button">
-                        <Link to={`/${previous.slug}`} rel="prev">
+                        <Link to={`/amp/${previous.slug}/`} rel="prev">
                             ← {parse(previous.title)}
                         </Link>
                     </div>
                 )}
 
                 {next && (<div className="primary-button">
-                        <Link to={`/${next.slug}`} rel="next">
+                        <Link to={`/amp/${next.slug}/`} rel="next">
                             {parse(next.title)} →
                         </Link>
                     </div>
