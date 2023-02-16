@@ -1,16 +1,17 @@
 import React from "react"
 import {graphql, Link} from "gatsby"
-import {GatsbyImage} from "gatsby-plugin-image"
 import parse from "html-react-parser"
 
 import Layout from "../../components/layout"
 import Seo from "../../components/seo"
 
 const BlogPostTemplate = ({data: {previous, next, post}}) => {
-    const featured_image = {
-        data: post.featured_image?.childImageSharp?.gatsbyImageData,
-        alt: post.title,
-    }
+    const {
+        src,
+        srcWebp,
+        presentationWidth,
+        presentationHeight
+    } = post.featured_image.childImageSharp.fluid
 
     return (
         <Layout>
@@ -33,16 +34,23 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                         </div>
                     </div>
                     <div className="post-img-container">
-                        {/* if we have a featured image for this post let's display it */}
-                        {featured_image?.data && (
-                            <GatsbyImage
-                                width={586}
-                                height={390}
-                                image={featured_image.data}
-                                alt={featured_image.alt}
-                                style={{marginBottom: 20}}
-                            />
-                        )}
+                        <amp-img
+                            src={srcWebp}
+                            width={presentationWidth}
+                            height={presentationHeight}
+                            alt={post.title}
+                            layout="responsive"
+                        >
+                            <div fallback>
+                                <amp-img
+                                    src={src}
+                                    width={presentationWidth}
+                                    height={presentationHeight}
+                                    alt={post.title}
+                                    layout="responsive"
+                                />
+                            </div>
+                        </amp-img>
                     </div>
                 </header>
 
@@ -100,14 +108,12 @@ export const pageQuery = graphql`
       author
       featured_image {
         childImageSharp {
-          gatsbyImageData(
-            quality: 100
-            placeholder: DOMINANT_COLOR
-            layout: CONSTRAINED
-            width: 586
-            height: 390
-            formats: [WEBP]
-          )
+          fluid {
+            src
+            srcWebp
+            presentationWidth
+            presentationHeight
+          }
         }
       }
     }

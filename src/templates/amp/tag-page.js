@@ -4,7 +4,6 @@ import parse from "html-react-parser"
 
 import Layout from "../../components/layout"
 import Seo from "../../components/seo"
-import {GatsbyImage} from "gatsby-plugin-image";
 
 const BlogIndex = ({
                        data,
@@ -36,10 +35,12 @@ const BlogIndex = ({
                 {posts.map(post => {
                     const title = post.title
 
-                    const featured_image = {
-                        data: post.featured_image?.childImageSharp?.gatsbyImageData,
-                        alt: post.title,
-                    }
+                    const {
+                        src,
+                        srcWebp,
+                        presentationWidth,
+                        presentationHeight
+                    } = post.featured_image.childImageSharp.fluid
 
                     return (
                         <div key={post.slug} className="post">
@@ -49,15 +50,23 @@ const BlogIndex = ({
                                 itemType="http://schema.org/NewsArticle"
                             >
                                 <header>
-                                    {featured_image?.data && (
-                                        <GatsbyImage
-                                            width={289}
-                                            height={192}
-                                            image={featured_image.data}
-                                            alt={featured_image.alt}
-                                            style={{marginBottom: 5}}
-                                        />
-                                    )}
+                                    <amp-img
+                                        src={srcWebp}
+                                        width={presentationWidth}
+                                        height={presentationHeight}
+                                        alt={post.title}
+                                        layout="responsive"
+                                    >
+                                        <div fallback>
+                                            <amp-img
+                                                src={src}
+                                                width={presentationWidth}
+                                                height={presentationHeight}
+                                                alt={post.title}
+                                                layout="responsive"
+                                            />
+                                        </div>
+                                    </amp-img>
                                     <div className="archive-post-tag-links">
                                         {post.foreign_tags.map((tag) => <div className="tag-link">
                                             <Link className="" to={`/${tag.slug}/`}>
@@ -117,14 +126,12 @@ export const pageQuery = graphql`
         }
         featured_image {
           childImageSharp {
-            gatsbyImageData(
-              quality: 100
-              placeholder: DOMINANT_COLOR
-              layout: CONSTRAINED
-              width: 289
-              height: 192
-              formats: [WEBP]
-            )
+            fluid {
+              src
+              srcWebp
+              presentationWidth
+              presentationHeight
+            }
           }
         }
       }

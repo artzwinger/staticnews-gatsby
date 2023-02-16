@@ -22,7 +22,7 @@ module.exports = {
             }
         },
         {
-            resolve: `gatsby-plugin-amp`,
+            resolve: `gatsby-plugin-google-amp`,
             options: {
                 canonicalBaseUrl: 'https://www.fastfastnews.ru/',
                 components: [],
