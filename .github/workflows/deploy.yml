@@ -20,9 +20,9 @@ jobs:
                   path: |
                       .cache
                       node_modules
-                  key: ${{ runner.os }}-fastfastnews-deploy-${{ github.run_id }}
+                  key: ${{ runner.os }}-fastfastnews-deploy
                   restore-keys: |
-                      ${{ runner.os }}-fastfastnews-deploy-
+                      ${{ runner.os }}-fastfastnews-deploy
             - name: Install dependencies
               run: npm install
             - name: Build
