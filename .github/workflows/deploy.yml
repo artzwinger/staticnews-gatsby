@@ -20,6 +20,7 @@ jobs:
                   path: |
                       .cache
                       node_modules
+                      public
                       .awspublish-www.fastfastnews.ru
                   key: ${{ runner.os }}-fastfastnews-deploy
                   restore-keys: |
