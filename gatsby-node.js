@@ -74,14 +74,14 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
 
             const getPagePath = page => {
                 if (page > 0 && page <= totalPages) {
-                    return page === 1 ? `/` : `${page}`
+                    return page === 1 ? `/` : `/${page}`
                 }
                 return null
             }
 
             const getAmpPagePath = page => {
                 if (page > 0 && page <= totalPages) {
-                    return page === 1 ? `amp` : `amp/${page}`
+                    return page === 1 ? `/amp` : `/amp/${page}`
                 }
                 return null
             }
@@ -133,7 +133,7 @@ async function createTagPage({ tag, gatsbyUtilities }) {
 
             const getAmpPagePath = page => {
                 if (page > 0 && page <= totalPages) {
-                    return page === 1 ? `amp/${tag.slug}` : `amp/${tag.slug}/${page}`
+                    return page === 1 ? `/amp/${tag.slug}` : `/amp/${tag.slug}/${page}`
                 }
 
                 return null

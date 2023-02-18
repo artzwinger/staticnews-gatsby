@@ -20,7 +20,7 @@
 }
 
 .archive-post-tag-links {
-    @apply my-2;
+    @apply my-2 flex flex-wrap gap-2;
 }
 
 .blog-post h1 {
