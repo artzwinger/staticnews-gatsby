@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind typography;
 
 .global-wrapper {
     @apply container mx-auto py-5 shadow-2xl px-5 md:px-20;
