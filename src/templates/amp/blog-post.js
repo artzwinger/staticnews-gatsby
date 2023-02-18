@@ -6,12 +6,18 @@ import Layout from "../../components/layout"
 import Seo from "../../components/seo"
 
 const BlogPostTemplate = ({data: {previous, next, post}}) => {
-    const {
-        src,
+    let src,
         srcWebp,
         presentationWidth,
-        presentationHeight
-    } = post.featured_image.childImageSharp.fluid
+        presentationHeight = null;
+    if (post.featured_image) {
+        let {
+            src,
+            srcWebp,
+            presentationWidth,
+            presentationHeight
+        } = post.featured_image.childImageSharp.fluid
+    }
 
     return (
         <Layout>
@@ -34,7 +40,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                         </div>
                     </div>
                     <div className="post-img-container">
-                        <amp-img
+                        {post.featured_image && <amp-img
                             src={srcWebp}
                             width={presentationWidth}
                             height={presentationHeight}
@@ -50,7 +56,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                                     layout="responsive"
                                 />
                             </div>
-                        </amp-img>
+                        </amp-img>}
                     </div>
                 </header>
 

@@ -11,8 +11,8 @@ module.exports = {
         {
             resolve: `source-plugin`,
             options: {
-                backendUrl: 'http://3.75.152.17',
-                backendWebsiteCode: 'fastfastnews',
+                backendUrl: 'http://localhost',
+                backendWebsiteCode: 'local',
             },
         },
         {

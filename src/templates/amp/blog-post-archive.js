@@ -35,12 +35,18 @@ const BlogIndex = ({
                 {posts.map(post => {
                     const title = post.title
 
-                    const {
-                        src,
+                    let src,
                         srcWebp,
                         presentationWidth,
-                        presentationHeight
-                    } = post.featured_image.childImageSharp.fluid
+                        presentationHeight = null;
+                    if (post.featured_image) {
+                        let {
+                            src,
+                            srcWebp,
+                            presentationWidth,
+                            presentationHeight
+                        } = post.featured_image.childImageSharp.fluid
+                    }
 
                     return (
                         <div key={post.slug} className="post">
@@ -50,7 +56,7 @@ const BlogIndex = ({
                                 itemType="http://schema.org/NewsArticle"
                             >
                                 <header>
-                                    <amp-img
+                                    {post.featured_image && <amp-img
                                         src={srcWebp}
                                         width={presentationWidth}
                                         height={presentationHeight}
@@ -66,7 +72,7 @@ const BlogIndex = ({
                                                 layout="responsive"
                                             />
                                         </div>
-                                    </amp-img>
+                                    </amp-img>}
                                     <div className="archive-post-tag-links">
                                         {post.foreign_tags.map((tag) => <div className="tag-link">
                                             <Link className="" to={`/amp/${tag.slug}/`}>
@@ -102,9 +108,9 @@ const BlogIndex = ({
     )
 }
 
-    export default BlogIndex
+export default BlogIndex
 
-    export const pageQuery = graphql`
+export const pageQuery = graphql`
   query PostArchive($offset: Int!, $postsPerPage: Int!) {
     site {
       siteMetadata {
