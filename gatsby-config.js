@@ -32,16 +32,5 @@ module.exports = {
                 useAmpClientIdApi: true,
             },
         },
-        {
-            resolve: 'gatsby-plugin-no-javascript-utils',
-            options: {
-                noScript: true,
-                noSourcemaps: true,
-                removeGeneratorTag: true,
-                removeHeadDataAttrs: true,
-                noInlineStyles: false,
-                removeGatsbyAnnouncer: true,
-            },
-        },
     ]
 };

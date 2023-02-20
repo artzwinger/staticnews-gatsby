@@ -53,12 +53,15 @@
 .post-info small {
 
 }
+
 .header-tags {
     @apply flex flex-wrap gap-2;
 }
+
 .post-tag-links {
     @apply flex gap-2;
 }
+
 .tag-link a {
     @apply no-underline inline-block px-2 py-1 border-2 border-red-700 hover:bg-red-700 hover:text-white text-red-700;
 }
@@ -78,6 +81,7 @@
 .post-list-item h2 {
     @apply text-xl font-bold;
 }
+
 .post-list-item small {
     @apply text-xs my-2 inline-block;
 }

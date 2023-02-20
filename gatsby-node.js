@@ -125,7 +125,7 @@ async function createTagPage({ tag, gatsbyUtilities }) {
 
             const getPagePath = page => {
                 if (page > 0 && page <= totalPages) {
-                    return page === 1 ? `${tag.slug}` : `${tag.slug}/${page}`
+                    return page === 1 ? `/${tag.slug}` : `/${tag.slug}/${page}`
                 }
 
                 return null
