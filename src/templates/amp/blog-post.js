@@ -6,18 +6,36 @@ import Layout from "../../components/layout"
 import Seo from "../../components/seo"
 
 const BlogPostTemplate = ({data: {previous, next, post}}) => {
-    let src,
-        srcWebp,
-        presentationWidth,
-        presentationHeight = null;
-    if (post.featured_image) {
-        let {
+    const renderImage = () => {
+        if (!post.featured_image) {
+            return null;
+        }
+        const {
             src,
             srcWebp,
             presentationWidth,
             presentationHeight
         } = post.featured_image.childImageSharp.fluid
-    }
+        return <>
+            <amp-img
+                src={srcWebp}
+                width={presentationWidth}
+                height={presentationHeight}
+                alt={post.title}
+                layout="responsive"
+            >
+                <div fallback>
+                    <amp-img
+                        src={src}
+                        width={presentationWidth}
+                        height={presentationHeight}
+                        alt={post.title}
+                        layout="responsive"
+                    />
+                </div>
+            </amp-img>
+        </>
+    };
 
     return (
         <Layout>
@@ -40,23 +58,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                         </div>
                     </div>
                     <div className="post-img-container">
-                        {post.featured_image && <amp-img
-                            src={srcWebp}
-                            width={presentationWidth}
-                            height={presentationHeight}
-                            alt={post.title}
-                            layout="responsive"
-                        >
-                            <div fallback>
-                                <amp-img
-                                    src={src}
-                                    width={presentationWidth}
-                                    height={presentationHeight}
-                                    alt={post.title}
-                                    layout="responsive"
-                                />
-                            </div>
-                        </amp-img>}
+                        {renderImage()}
                     </div>
                 </header>
 
