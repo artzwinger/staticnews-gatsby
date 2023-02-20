@@ -24,15 +24,14 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                 alt={post.title}
                 layout="responsive"
             >
-                <div fallback>
-                    <amp-img
-                        src={src}
-                        width={presentationWidth}
-                        height={presentationHeight}
-                        alt={post.title}
-                        layout="responsive"
-                    />
-                </div>
+                <amp-img
+                    fallback
+                    src={src}
+                    width={presentationWidth}
+                    height={presentationHeight}
+                    alt={post.title}
+                    layout="responsive"
+                />
             </amp-img>
         </>
     };
