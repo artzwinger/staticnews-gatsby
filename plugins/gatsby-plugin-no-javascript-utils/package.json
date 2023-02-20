@@ -1,0 +1,54 @@
+{
+  "name": "gatsby-plugin-no-javascript-utils",
+  "version": "0.13.0",
+  "description": "The utils for static site without javascript",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint '**/*.js'",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@arkweid/lefthook": "^0.7.7",
+    "@types/jest": "^29.2.6",
+    "@types/node": "^18.11.18",
+    "eslint": "^8.32.0",
+    "gatsby-plugin-utils": "^4.4.0",
+    "jest": "^29.3.1"
+  },
+  "peerDependencies": {
+    "gatsby": "^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "gatsby": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "no-javascript",
+    "no-sourcemaps",
+    "no-generator",
+    "no-inline-styles"
+  ],
+  "files": [
+    "gatsby-node.js",
+    "gatsby-ssr.js",
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shoonia/gatsby-plugin-no-javascript-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shoonia/gatsby-plugin-no-javascript-utils/issues"
+  },
+  "author": {
+    "name": "Alexander Zaytsev",
+    "email": "zaytsev126@gmail.com",
+    "url": "https://twitter.com/_shoonia"
+  },
+  "homepage": "https://github.com/shoonia/gatsby-plugin-no-javascript-utils#readme",
+  "private": false,
+  "license": "MIT"
+}
