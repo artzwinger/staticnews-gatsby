@@ -1,0 +1,39 @@
+{
+  "name": "gatsby-plugin-google-amp",
+  "version": "1.0.4",
+  "description": "A gatsby plugin for Google AMP pages",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir . --ignore **/__tests__",
+    "prepare": "npm run build",
+    "watch": "babel -w src --out-dir . --ignore **/__tests__",
+    "commit": "git add . && git commit && git push -u origin master"
+  },
+  "author": "Mukul Rathi",
+  "license": "MIT",
+  "homepage": "https://github.com/mukul-rathi/gatsby-plugin-google-amp#readme",
+  "repository": "https://github.com/mukul-rathi/gatsby-plugin-google-amp",
+  "bugs": {
+    "url": "https://github.com/mukul-rathi/gatsby-plugin-google-amp/issues"
+  },
+  "dependencies": {
+    "core-js": "2",
+    "jsdom": "^13.0.0",
+    "lodash.flattendeep": "^4.4.0",
+    "minimatch": "^3.0.4",
+    "react": "^16.6.1"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-plugin-google-amp",
+    "gatsby-plugin-amp",
+    "amp",
+    "accelerated-mobile-pages"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.5",
+    "babel-preset-gatsby-package": "^0.1.2"
+  }
+}

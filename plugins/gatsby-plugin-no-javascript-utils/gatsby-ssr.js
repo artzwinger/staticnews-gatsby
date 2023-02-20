@@ -9,6 +9,7 @@ const scriptType = new Set([
 
 /**
  * @typedef {{
+ * pathname: String
  * getHeadComponents(): any[]
  * replaceHeadComponents(head: any[]): void
  * getPostBodyComponents(): any[]
@@ -16,6 +17,7 @@ const scriptType = new Set([
  * }} Api
  *
  * @typedef {{
+ * pathContains?: String
  * noScript?: boolean
  * noSourcemaps?: boolean
  * removeGeneratorTag?: boolean
@@ -30,12 +32,14 @@ const scriptType = new Set([
  */
 exports.onPreRenderHTML = (
   {
+    pathname,
     getHeadComponents,
     replaceHeadComponents,
     getPostBodyComponents,
     replacePostBodyComponents,
   },
   {
+    pathContains = '/amp/',
     noScript = true,
     removeGeneratorTag = true,
     removeReactHelmetAttrs = false, // Deprecated
@@ -43,9 +47,10 @@ exports.onPreRenderHTML = (
     noInlineStyles = false,
   },
 ) => {
-  const isProduction = process.env.NODE_ENV === 'production';
-  console.log(process.env.NODE_ENV, isProduction)
   if (isProduction) {
+    if (pathContains && !pathname.includes(pathContains)) {
+      return;
+    }
     let head = getHeadComponents();
     let postBody = getPostBodyComponents();
 
@@ -55,7 +60,7 @@ exports.onPreRenderHTML = (
       );
 
       postBody = postBody.filter(
-        (i) => i.type !== 'script' || ('type' in i.props && !scriptType.has(i.props.type)),
+        (i) => i.type !== 'script',
       );
     }
 
