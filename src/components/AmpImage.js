@@ -1,21 +1,33 @@
 import React from "react";
 
 export const AmpImage = (post) => {
-    if (!post.featured_image?.original?.src) {
+    if (!post.featured_image
+        || !post.featured_image.childImageSharp
+        || !post.featured_image.childImageSharp.fluid) {
         return null;
     }
     const {
         src,
-        height,
-        width
-    } = post.featured_image.original
+        srcWebp,
+        presentationWidth,
+        presentationHeight
+    } = post.featured_image.childImageSharp.fluid
     return <>
         <amp-img
-            src={src}
-            width={width}
-            height={height}
+            src={srcWebp}
+            width={presentationWidth}
+            height={presentationHeight}
             alt={post.title}
             layout="responsive"
-        />
+        >
+            <amp-img
+                fallback=""
+                src={src}
+                width={presentationWidth}
+                height={presentationHeight}
+                alt={post.title}
+                layout="responsive"
+            />
+        </amp-img>
     </>
 };
