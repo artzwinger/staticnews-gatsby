@@ -46,7 +46,7 @@ const BlogIndex = ({
                 layout="responsive"
             >
                 <amp-img
-                    fallback
+                    fallback=""
                     src={src}
                     width={presentationWidth}
                     height={presentationHeight}
