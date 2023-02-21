@@ -1,7 +1,9 @@
 import React from "react";
 
 export const AmpImage = (post) => {
-    if (!post.featured_image) {
+    if (!post.featured_image
+        || !post.featured_image.childImageSharp
+        || !post.featured_image.childImageSharp.fluid) {
         return null;
     }
     const {
