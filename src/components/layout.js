@@ -1,8 +1,10 @@
-import React from "react"
+import React, {useState} from "react"
 import {graphql, Link, useStaticQuery} from "gatsby"
 import '../css/style.css'
+import {HeaderTags} from "./HeaderTags";
 
 const Layout = ({isHomePage, children, isAmp = false}) => {
+    const [open, setOpen] = useState(false)
     const data = useStaticQuery(graphql`
             query Tags {
               site {
@@ -20,7 +22,7 @@ const Layout = ({isHomePage, children, isAmp = false}) => {
     const siteName = data.site.siteMetadata.name
     const tags = data.allTag.nodes
     return (
-        <div className="global-wrapper" data-is-root-path={isHomePage}>
+        <div className="global-wrapper" onClick={() => setOpen(false)} data-is-root-path={isHomePage}>
             <header className="global-header">
                 {isHomePage ? (
                     <h1 className="main-heading">
@@ -31,13 +33,7 @@ const Layout = ({isHomePage, children, isAmp = false}) => {
                         {siteName}
                     </Link>
                 )}
-                <div className="header-tags">
-                    {tags.map((tag) => <div className="tag-link" key={`head-tag-link-${tag.slug}`}>
-                        <Link className="" to={isAmp ? `/amp/${tag.slug}/` : `/${tag.slug}/`}>
-                            {tag.name}
-                        </Link>
-                    </div>)}
-                </div>
+                <HeaderTags tags={tags} isAmp={isAmp} open={open} setOpen={setOpen}/>
             </header>
 
             <main>{children}</main>
