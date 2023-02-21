@@ -2,7 +2,7 @@ import React from "react"
 import {graphql, Link, useStaticQuery} from "gatsby"
 import '../css/style.css'
 
-const Layout = ({isHomePage, children}) => {
+const Layout = ({isHomePage, children, isAmp = false}) => {
     const data = useStaticQuery(graphql`
             query Tags {
               site {
@@ -33,7 +33,7 @@ const Layout = ({isHomePage, children}) => {
                 )}
                 <div className="header-tags">
                     {tags.map((tag) => <div className="tag-link" key={`head-tag-link-${tag.slug}`}>
-                        <Link className="" to={`/${tag.slug}/`}>
+                        <Link className="" to={isAmp ? `/amp/${tag.slug}/` : `/${tag.slug}/`}>
                             {tag.name}
                         </Link>
                     </div>)}

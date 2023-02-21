@@ -5,6 +5,7 @@ import parse from "html-react-parser"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import {ForeignTags} from "../components/ForeignTags";
 
 const BlogPostTemplate = ({data: {previous, next, post}}) => {
     const featured_image = {
@@ -27,11 +28,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                         <h6 itemProp="author">{parse(post.author)}</h6>
                         <small itemProp="datePublished">{post.foreign_created_at}</small>
                         <div className="post-tag-links">
-                            {post.foreign_tags.map((tag) => <div className="tag-link" key={`post-tag-link-${tag.slug}`}>
-                                <Link className="" to={`/${tag.slug}/`}>
-                                    {tag.name}
-                                </Link>
-                            </div>)}
+                            {ForeignTags(post)}
                         </div>
                     </div>
                     <div className="post-img-container">

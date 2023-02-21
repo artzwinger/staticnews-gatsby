@@ -5,6 +5,7 @@ import parse from "html-react-parser"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import {GatsbyImage} from "gatsby-plugin-image";
+import {ForeignTags} from "../components/ForeignTags";
 
 const BlogIndex = ({
                        data,
@@ -60,11 +61,7 @@ const BlogIndex = ({
                                         />
                                     )}
                                     <div className="archive-post-tag-links">
-                                        {post.foreign_tags.map((tag) => <div className="tag-link">
-                                            <Link className="" to={`/${tag.slug}/`}>
-                                                {tag.name}
-                                            </Link>
-                                        </div>)}
+                                        {ForeignTags(post)}
                                     </div>
                                     <h2>
                                         <Link to={`/${post.slug}`} itemProp="url">

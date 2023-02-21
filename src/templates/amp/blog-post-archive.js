@@ -4,6 +4,8 @@ import parse from "html-react-parser"
 
 import Layout from "../../components/layout"
 import Seo from "../../components/seo"
+import {AmpImage} from "../../components/AmpImage";
+import {ForeignTags} from "../../components/ForeignTags";
 
 const BlogIndex = ({
                        data,
@@ -27,38 +29,8 @@ const BlogIndex = ({
         )
     }
 
-    const renderImage = (post) => {
-        if (!post.featured_image) {
-            return null;
-        }
-        const {
-            src,
-            srcWebp,
-            presentationWidth,
-            presentationHeight
-        } = post.featured_image.childImageSharp.fluid
-        return <>
-            <amp-img
-                src={srcWebp}
-                width={presentationWidth}
-                height={presentationHeight}
-                alt={post.title}
-                layout="responsive"
-            >
-                <amp-img
-                    fallback=""
-                    src={src}
-                    width={presentationWidth}
-                    height={presentationHeight}
-                    alt={post.title}
-                    layout="responsive"
-                />
-            </amp-img>
-        </>
-    };
-
     return (
-        <Layout isHomePage>
+        <Layout isHomePage isAmp={true}>
             <Seo title={title}/>
 
             <div className="posts">
@@ -73,13 +45,9 @@ const BlogIndex = ({
                                 itemType="http://schema.org/NewsArticle"
                             >
                                 <header>
-                                    {renderImage(post)}
+                                    {AmpImage(post)}
                                     <div className="archive-post-tag-links">
-                                        {post.foreign_tags.map((tag) => <div className="tag-link">
-                                            <Link className="" to={`/amp/${tag.slug}/`}>
-                                                {tag.name}
-                                            </Link>
-                                        </div>)}
+                                        {ForeignTags(post)}
                                     </div>
                                     <h2>
                                         <Link to={`/amp/${post.slug}/`} itemProp="url">

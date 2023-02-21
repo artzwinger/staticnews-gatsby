@@ -4,40 +4,12 @@ import parse from "html-react-parser"
 
 import Layout from "../../components/layout"
 import Seo from "../../components/seo"
+import {AmpImage} from "../../components/AmpImage";
+import {ForeignTags} from "../../components/ForeignTags";
 
 const BlogPostTemplate = ({data: {previous, next, post}}) => {
-    const renderImage = () => {
-        if (!post.featured_image) {
-            return null;
-        }
-        const {
-            src,
-            srcWebp,
-            presentationWidth,
-            presentationHeight
-        } = post.featured_image.childImageSharp.fluid
-        return <>
-            <amp-img
-                src={srcWebp}
-                width={presentationWidth}
-                height={presentationHeight}
-                alt={post.title}
-                layout="responsive"
-            >
-                <amp-img
-                    fallback=""
-                    src={src}
-                    width={presentationWidth}
-                    height={presentationHeight}
-                    alt={post.title}
-                    layout="responsive"
-                />
-            </amp-img>
-        </>
-    };
-
     return (
-        <Layout>
+        <Layout isAmp={true}>
             <Seo title={post.title} description={post.description}/>
 
             <article
@@ -49,15 +21,11 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                         <h6 itemProp="author">{parse(post.author)}</h6>
                         <small itemProp="datePublished">{post.foreign_created_at}</small>
                         <div className="post-tag-links">
-                            {post.foreign_tags.map((tag) => <div className="tag-link" key={`post-tag-link-${tag.slug}`}>
-                                <Link className="" to={`/amp/${tag.slug}/`}>
-                                    {tag.name}
-                                </Link>
-                            </div>)}
+                            {ForeignTags(post)}
                         </div>
                     </div>
                     <div className="post-img-container">
-                        {renderImage()}
+                        {AmpImage(post)}
                     </div>
                 </header>
 
