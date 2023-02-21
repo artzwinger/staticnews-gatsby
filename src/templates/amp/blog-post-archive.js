@@ -98,11 +98,10 @@ export const pageQuery = graphql`
         }
         featured_image {
           childImageSharp {
-            fluid {
+            original {
               src
-              srcWebp
-              presentationWidth
-              presentationHeight
+              height
+              width
             }
           }
         }
