@@ -6,6 +6,7 @@ import Layout from "../../components/layout"
 import Seo from "../../components/seo"
 import {AmpImage} from "../../components/AmpImage";
 import {ForeignTags} from "../../components/ForeignTags";
+import {SourceLink} from "../../components/SourceLink";
 
 const BlogPostTemplate = ({data: {previous, next, post}}) => {
     return (
@@ -33,13 +34,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                     <section itemProp="articleBody">{parse(post.content)}</section>
                 )}
 
-                {post.source_link &&
-                    <div className="source-link">
-                        <Link to={post.source_link}>
-                            Источник: {post.source_link}
-                        </Link>
-                    </div>
-                }
+                <SourceLink post={post}/>
             </article>
 
             <nav className="list-nav">
