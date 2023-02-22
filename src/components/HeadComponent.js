@@ -2,7 +2,7 @@ import React from "react";
 
 export const HeadComponent = ({title, description, isAmp = false, tag, page, isArchive = false}) => {
     const pageTitle = getTitle({title, page, isArchive, tag})
-    const pageDescription = getTitle({description, page, isArchive, tag})
+    const pageDescription = getPageDescription({description, page, isArchive, tag})
     return <>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription}/>
@@ -32,7 +32,7 @@ const getTitle = ({title, page, isArchive, tag}) => {
     return pageTitle
 }
 
-const pageDescription = ({description, page, isArchive, tag}) => {
+const getPageDescription = ({description, page, isArchive, tag}) => {
     let pageDescription = description
     if (isArchive) {
         pageDescription = `Все новости | ${pageDescription}`
