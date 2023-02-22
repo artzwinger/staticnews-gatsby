@@ -25,7 +25,7 @@ const Layout = ({isHomePage, children, isAmp = false}) => {
         <div className="global-wrapper" onClick={() => setOpen(false)} data-is-root-path={isHomePage}>
             <div itemScope itemType="https://schema.org/WebSite">
                 <meta itemProp="url" content="https://www.fastfastnews.ru/"/>
-                <meta itemProp="name" content="⚡ Быстрые новости ⚡"/>
+                <meta itemProp="name" content={siteName}/>
             </div>
             <header className="global-header">
                 {isHomePage ? (

@@ -4,7 +4,7 @@
 module.exports = {
     siteMetadata: {
         title: `⚡ Быстрые новости ⚡`,
-        name: '⚡ Быстрые новости ⚡',
+        name: 'Быстрые новости',
         siteUrl: `https://www.fastfastnews.ru`
     },
     plugins: ["gatsby-plugin-image", "gatsby-plugin-sitemap", "gatsby-plugin-sharp", "gatsby-transformer-sharp",
