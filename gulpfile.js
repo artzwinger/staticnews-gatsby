@@ -19,7 +19,7 @@ const config = {
   region: process.env.AWS_DEFAULT_REGION,
   distDir: 'public',
   indexRootPath: true,
-  cacheFileName: '.awspublish',
+  cacheFileName: '.cache/awspublish',
   concurrentUploads: 10
 }
 
@@ -27,7 +27,7 @@ gulp.task('deploy', function () {
   // create a new publisher using S3 options
   // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property
   console.log(config)
-  const publisher = awspublish.create(config)
+  const publisher = awspublish.create(config, {cacheFileName: config.cacheFileName})
 
   let g = gulp.src('./' + config.distDir + '/**')
   // publisher will add Content-Length, Content-Type and headers specified above
