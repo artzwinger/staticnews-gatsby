@@ -70,7 +70,7 @@ const BlogIndex = ({
                         </div>
                     )}
                     {nextPagePath &&
-                        <div className="primary-button"><Link to={nextPagePath}>Следующая страница</Link></div>}
+                        <div className="primary-button next-page"><Link to={nextPagePath}>Следующая страница</Link></div>}
                 </div>
             </div>
         </Layout>

@@ -30,6 +30,10 @@
     @apply flex gap-5 justify-between w-full;
 }
 
+.list-nav .next-page {
+    @apply ml-auto;
+}
+
 .archive-nav {
     @apply max-w-2xl mx-auto py-10;
 }

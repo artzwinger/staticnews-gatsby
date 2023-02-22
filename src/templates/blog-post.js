@@ -62,7 +62,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                     </div>
                 )}
 
-                {next && (<div className="primary-button">
+                {next && (<div className="primary-button next-page">
                         <Link to={`/${next.slug}`} rel="next">
                             {parse(next.title)} →
                         </Link>
