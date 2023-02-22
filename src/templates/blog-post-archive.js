@@ -22,8 +22,7 @@ const BlogIndex = ({
             <Layout isHomePage>
                 <Seo title={title}/>
                 <p>
-                    No blog posts found. Add posts to your WordPress site and they'll
-                    appear here!
+                    Пока нет постов
                 </p>
             </Layout>
         )
@@ -31,7 +30,7 @@ const BlogIndex = ({
 
     return (
         <Layout isHomePage>
-            <Seo title={title}/>
+            <Seo title={title} description={title}/>
 
             <div className="posts">
                 {posts.map(post => {
