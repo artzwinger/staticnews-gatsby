@@ -43,5 +43,6 @@ module.exports = {
                 useCDN: true,
             },
         },
+        'gatsby-plugin-robots-txt'
     ]
 };

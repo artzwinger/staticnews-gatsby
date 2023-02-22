@@ -11,7 +11,12 @@ import {SourceLink} from "../../components/SourceLink";
 const BlogPostTemplate = ({data: {previous, next, post}}) => {
     return (
         <Layout isAmp={true}>
-            <Seo title={post.title} description={post.description}/>
+            <Seo title={post.title} description={post.description} meta={
+                [{
+                    name: 'yandex',
+                    content: 'noindex'
+                }]
+            }/>
 
             <article
                 className="blog-post"
