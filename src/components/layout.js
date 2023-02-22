@@ -23,6 +23,10 @@ const Layout = ({isHomePage, children, isAmp = false}) => {
     const tags = data.allTag.nodes
     return (
         <div className="global-wrapper" onClick={() => setOpen(false)} data-is-root-path={isHomePage}>
+            <div itemScope itemType="https://schema.org/WebSite">
+                <meta itemProp="url" content="https://www.fastfastnews.ru/"/>
+                <meta itemProp="name" content="⚡ Быстрые новости ⚡"/>
+            </div>
             <header className="global-header">
                 {isHomePage ? (
                     <h1 className="main-heading">

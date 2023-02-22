@@ -66,11 +66,10 @@ amp-sidebar ul {
     @apply flex flex-wrap gap-2 hidden md:flex;
 }
 .sidebar-tags.open {
-    @apply right-0;
+    @apply flex;
 }
 .sidebar-tags {
-    right: -99999px;
-    @apply absolute ease-in top-24 py-2 px-5 z-50 flex flex-wrap gap-2 bg-white;
+    @apply right-0 absolute hidden ease-in top-24 py-2 px-5 z-50 flex-wrap gap-2 bg-white;
 }
 
 .hamburger-menu {
