@@ -72,7 +72,7 @@ export const Head = ({
                          data: {site: {siteMetadata: {title, description}}},
                          pageContext: {page, tag}
                      }) => {
-    return <HeadComponent title={title} page={page} tag={tag} description={description}/>
+    return <HeadComponent title={title} page={page} tag={tag} description={description} isAmp={true}/>
 }
 
 export default BlogIndex

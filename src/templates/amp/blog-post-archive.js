@@ -78,7 +78,7 @@ export const Head = ({
     if (page > 1) {
         pageTitle = `Страница ${page} | ${pageTitle}`
     }
-    return <HeadComponent title={title} page={page} isArchive={true} description={description}/>
+    return <HeadComponent title={title} page={page} isAmp={true} isArchive={true} description={description}/>
 }
 
 

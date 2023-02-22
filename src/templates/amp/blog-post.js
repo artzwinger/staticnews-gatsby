@@ -55,7 +55,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
 }
 
 export const Head = ({data: {post}}) => {
-    return <HeadComponent title={post.title} description={post.description}/>
+    return <HeadComponent title={post.title} description={post.description} isAmp={true}/>
 }
 
 export default BlogPostTemplate
