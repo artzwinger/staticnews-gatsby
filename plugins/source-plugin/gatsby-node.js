@@ -138,11 +138,14 @@ exports.sourceNodes = async function sourceNodes(
 
     // touch nodes to ensure they aren't garbage collected
     getNodesByType(POST_NODE_TYPE).forEach(node => touchNode(node))
-    // getNodesByType(TAG_NODE_TYPE).forEach(node => touchNode(node))
+    getNodesByType(TAG_NODE_TYPE).forEach(node => deleteNode(node))
 
     data.articles.forEach(post => {
         if (post.foreign_tags) {
-            post.foreign_tags.forEach(tag => createNodeFromData(tag, TAG_NODE_TYPE, helpers))
+            post.foreign_tags.forEach(tag => {
+                tag.id = tag.slug
+                createNodeFromData(tag, TAG_NODE_TYPE, helpers)
+            })
             post.foreign_tags = post.foreign_tags.map((tag) => tag.name)
         }
         createNodeFromData(post, POST_NODE_TYPE, helpers)
