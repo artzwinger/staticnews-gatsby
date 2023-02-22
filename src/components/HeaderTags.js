@@ -3,10 +3,10 @@ import {AmpTags} from "./AmpTags";
 import {Link} from "gatsby";
 
 export const HeaderTags = ({tags, isAmp = false, open, setOpen}) => {
+    tags = [...new Map(tags.map(item => [item['slug'], item])).values()] // unique tags by slug
     if (isAmp) {
         return <AmpTags tags={tags}></AmpTags>
     }
-    tags = [...new Map(tags.map(item => [item['slug'], item])).values()] // unique tags by slug
     return <div className={'header-tags-container'} onClick={(e) => e.stopPropagation()}>
         <div className={"hamburger-menu"} onClick={() => setOpen(!open)}>
             <svg viewBox="0 0 100 80" width="40" height="40">
