@@ -21,7 +21,6 @@ jobs:
                       .cache
                       node_modules
                       public
-                      .awspublish-www.fastfastnews.ru
                   key: ${{ runner.os }}-fastfastnews-deploy-${{ github.run_id }}
                   restore-keys: |
                       ${{ runner.os }}-fastfastnews-deploy-
