@@ -4,6 +4,7 @@
 module.exports = {
     siteMetadata: {
         title: `⚡ Быстрые новости ⚡`,
+        description: 'Быстрые новости',
         name: 'Быстрые новости',
         siteUrl: `https://www.fastfastnews.ru`
     },

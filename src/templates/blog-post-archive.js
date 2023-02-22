@@ -87,11 +87,7 @@ export const Head = ({
                          data: {site: {siteMetadata: {title, description}}},
                          pageContext: {page}
                      }) => {
-    let pageTitle = `Все новости | ${title}`
-    if (page > 1) {
-        pageTitle = `Страница ${page} | ${pageTitle}`
-    }
-    return <HeadComponent title={pageTitle} description={description}/>
+    return <HeadComponent title={title} page={page} isArchive={true} description={description}/>
 }
 
 export default BlogIndex
@@ -101,6 +97,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        description
       }
     }
     allPost(sort: {foreign_created_at: DESC}, limit: $postsPerPage, skip: $offset) {

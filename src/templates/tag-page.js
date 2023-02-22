@@ -87,11 +87,7 @@ export const Head = ({
                          data: {site: {siteMetadata: {title, description}}},
                          pageContext: {page, tag}
                      }) => {
-    let pageTitle = `${tag.name} | ${title}`
-    if (page > 1) {
-        pageTitle = `Страница ${page} | ${tag.name} | ${pageTitle}`
-    }
-    return <HeadComponent title={pageTitle} description={description}/>
+    return <HeadComponent title={title} page={page} tag={tag} description={description}/>
 }
 
 export default BlogIndex
@@ -101,6 +97,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        description
       }
     }
     allPost(
