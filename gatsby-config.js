@@ -40,7 +40,7 @@ module.exports = {
                 webvisor: true,
                 trackHash: true,
                 afterBody: true,
-                defer: false,
+                defer: true,
                 useCDN: true,
             },
         },
