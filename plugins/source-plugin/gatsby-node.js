@@ -138,7 +138,7 @@ exports.sourceNodes = async function sourceNodes(
 
     // touch nodes to ensure they aren't garbage collected
     getNodesByType(POST_NODE_TYPE).forEach(node => touchNode(node))
-    getNodesByType(TAG_NODE_TYPE).forEach(node => touchNode(node))
+    // getNodesByType(TAG_NODE_TYPE).forEach(node => touchNode(node))
 
     data.articles.forEach(post => {
         if (post.foreign_tags) {
