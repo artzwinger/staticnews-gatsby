@@ -17,7 +17,7 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                 <header>
                     <h1 itemProp="headline">{parse(post.title)}</h1>
                     <div className="post-info">
-                        <h6 itemProp="author">{parse(post.author)}</h6>
+                        <span itemProp="author">{parse(post.author)}</span>
                         <small itemProp="datePublished">{post.foreign_created_at}</small>
                         <div className="post-tag-links">
                             {ForeignTags(post)}
