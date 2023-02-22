@@ -57,7 +57,7 @@ amp-sidebar ul li {
     @apply block;
 }
 amp-sidebar ul {
-    @apply flex flex-col gap-2;
+    @apply flex flex-col gap-2 px-2 py-2;
 }
 .header-tags-container {
     @apply ml-auto;
