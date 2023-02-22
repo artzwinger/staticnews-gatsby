@@ -10,6 +10,8 @@ import PropTypes from "prop-types"
 import {Helmet} from "react-helmet"
 
 const Seo = ({description, lang = 'ru', meta, title}) => {
+    const metaDescription = description || 'Новости'
+
     return (
         <Helmet
             htmlAttributes={{
@@ -20,7 +22,7 @@ const Seo = ({description, lang = 'ru', meta, title}) => {
             meta={[
                 {
                     name: `description`,
-                    content: description,
+                    content: metaDescription,
                 },
                 {
                     property: `og:title`,
@@ -28,7 +30,7 @@ const Seo = ({description, lang = 'ru', meta, title}) => {
                 },
                 {
                     property: `og:description`,
-                    content: description,
+                    content: metaDescription,
                 },
                 {
                     property: `og:type`,
@@ -44,11 +46,17 @@ const Seo = ({description, lang = 'ru', meta, title}) => {
                 },
                 {
                     name: `twitter:description`,
-                    content: description,
+                    content: metaDescription,
                 },
             ].concat(meta)}
         />
     )
+}
+
+Seo.defaultProps = {
+    lang: `ru`,
+    meta: [],
+    description: ``,
 }
 
 Seo.propTypes = {
