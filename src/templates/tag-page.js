@@ -3,24 +3,18 @@ import {graphql, Link} from "gatsby"
 import parse from "html-react-parser"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 import {GatsbyImage} from "gatsby-plugin-image";
 import {ForeignTags} from "../components/ForeignTags";
+import {HeadComponent} from "../components/HeadComponent";
 
 const BlogIndex = ({
                        data,
-                       pageContext: {nextPagePath, previousPagePath, page, tag},
+                       pageContext: {nextPagePath, previousPagePath},
                    }) => {
     const posts = data.allPost.nodes
-    const defaultTitle = data.site.siteMetadata.title
-    let title = `${tag.name} | ${defaultTitle}`
-    if (page > 1) {
-        title = `Страница ${page} | ${tag.name} | ${title}`
-    }
     if (!posts.length) {
         return (
             <Layout isHomePage>
-                <Seo title={title}/>
                 <p>
                     По этому тегу нет постов. Как вы сюда попали?
                 </p>
@@ -30,8 +24,6 @@ const BlogIndex = ({
 
     return (
         <Layout isHomePage>
-            <Seo title={title} description={title}/>
-
             <div className="posts">
                 {posts.map(post => {
                     const title = post.title
@@ -83,11 +75,23 @@ const BlogIndex = ({
                         </div>
                     )}
                     {nextPagePath &&
-                        <div className="primary-button next-page"><Link to={nextPagePath}>Следующая страница</Link></div>}
+                        <div className="primary-button next-page"><Link to={nextPagePath}>Следующая страница</Link>
+                        </div>}
                 </div>
             </div>
         </Layout>
     )
+}
+
+export const Head = ({
+                         data: {site: {siteMetadata: {title, description}}},
+                         pageContext: {page, tag}
+                     }) => {
+    let pageTitle = `${tag.name} | ${title}`
+    if (page > 1) {
+        pageTitle = `Страница ${page} | ${tag.name} | ${pageTitle}`
+    }
+    return <HeadComponent title={pageTitle} description={description}/>
 }
 
 export default BlogIndex

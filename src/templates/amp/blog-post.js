@@ -3,21 +3,14 @@ import {graphql, Link} from "gatsby"
 import parse from "html-react-parser"
 
 import Layout from "../../components/layout"
-import Seo from "../../components/seo"
 import {AmpImage} from "../../components/AmpImage";
 import {ForeignTags} from "../../components/ForeignTags";
 import {SourceLink} from "../../components/SourceLink";
+import {HeadComponent} from "../../components/HeadComponent";
 
 const BlogPostTemplate = ({data: {previous, next, post}}) => {
     return (
         <Layout isAmp={true}>
-            <Seo title={post.title} description={post.description} meta={
-                [{
-                    name: 'yandex',
-                    content: 'noindex'
-                }]
-            }/>
-
             <article
                 className="blog-post"
             >
@@ -59,6 +52,10 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
             </nav>
         </Layout>
     )
+}
+
+export const Head = ({data: {post}}) => {
+    return <HeadComponent title={post.title} description={post.description}/>
 }
 
 export default BlogPostTemplate

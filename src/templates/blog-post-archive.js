@@ -3,24 +3,18 @@ import {graphql, Link} from "gatsby"
 import parse from "html-react-parser"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 import {GatsbyImage} from "gatsby-plugin-image";
 import {ForeignTags} from "../components/ForeignTags";
+import {HeadComponent} from "../components/HeadComponent";
 
 const BlogIndex = ({
                        data,
-                       pageContext: {nextPagePath, previousPagePath, page},
+                       pageContext: {nextPagePath, previousPagePath},
                    }) => {
     const posts = data.allPost.nodes
-    const defaultTitle = data.site.siteMetadata.title
-    let title = `Все новости | ${defaultTitle}`
-    if (page > 1) {
-        title = `Страница ${page} | ${title}`
-    }
     if (!posts.length) {
         return (
             <Layout isHomePage>
-                <Seo title={title}/>
                 <p>
                     Пока нет постов
                 </p>
@@ -30,8 +24,6 @@ const BlogIndex = ({
 
     return (
         <Layout isHomePage>
-            <Seo title={title} description={title}/>
-
             <div className="posts">
                 {posts.map(post => {
                     const title = post.title
@@ -83,16 +75,28 @@ const BlogIndex = ({
                         </div>
                     )}
                     {nextPagePath &&
-                        <div className="primary-button next-page"><Link to={nextPagePath}>Следующая страница</Link></div>}
+                        <div className="primary-button next-page"><Link to={nextPagePath}>Следующая страница</Link>
+                        </div>}
                 </div>
             </div>
         </Layout>
     )
 }
 
-    export default BlogIndex
+export const Head = ({
+                         data: {site: {siteMetadata: {title, description}}},
+                         pageContext: {page}
+                     }) => {
+    let pageTitle = `Все новости | ${title}`
+    if (page > 1) {
+        pageTitle = `Страница ${page} | ${pageTitle}`
+    }
+    return <HeadComponent title={pageTitle} description={description}/>
+}
 
-    export const pageQuery = graphql`
+export default BlogIndex
+
+export const pageQuery = graphql`
   query PostArchive($offset: Int!, $postsPerPage: Int!) {
     site {
       siteMetadata {

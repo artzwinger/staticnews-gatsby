@@ -4,9 +4,9 @@ import {GatsbyImage} from "gatsby-plugin-image"
 import parse from "html-react-parser"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 import {ForeignTags} from "../components/ForeignTags";
 import {SourceLink} from "../components/SourceLink";
+import {HeadComponent} from "../components/HeadComponent";
 
 const BlogPostTemplate = ({data: {previous, next, post}}) => {
     const featured_image = {
@@ -16,8 +16,6 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
 
     return (
         <Layout>
-            <Seo title={post.title} description={post.description}/>
-
             <article
                 className="blog-post"
                 itemScope
@@ -71,6 +69,10 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
             </nav>
         </Layout>
     )
+}
+
+export const Head = ({data: {post}}) => {
+    return <HeadComponent title={post.title} description={post.description}/>
 }
 
 export default BlogPostTemplate
