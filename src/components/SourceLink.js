@@ -7,7 +7,7 @@ export const SourceLink = ({post}) => {
     }
     const domain = new URL(post.source_link)
     return <div className="source-link">
-        <Link to={post.source_link}>
+        <Link to={post.source_link} rel={"nofollow"}>
             Источник: {domain.hostname}
         </Link>
     </div>
