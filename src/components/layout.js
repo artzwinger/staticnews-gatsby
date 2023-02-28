@@ -21,7 +21,19 @@ const Layout = ({isHomePage, children, isAmp = false}) => {
             }`)
     const siteName = data.site.siteMetadata.name
     const tags = data.allTag.nodes
-    return (
+    const ampMetrika = {
+        "vars": {
+            "counterId": "92558241"
+        }
+    }
+    const ampMetrikaJson = JSON.stringify(ampMetrika, null, 2)
+        .replace('\\', '')
+        .replace('&quot', '"')
+
+    return <>
+        {isAmp && <amp-analytics type="metrika">
+            <script type="application/json" dangerouslySetInnerHTML={{__html: ampMetrikaJson}}/>
+        </amp-analytics>}
         <div className="global-wrapper" onClick={() => setOpen(false)} data-is-root-path={isHomePage}>
             <div itemScope itemType="https://schema.org/WebSite">
                 <meta itemProp="url" content="https://www.fastfastnews.ru/"/>
@@ -46,7 +58,7 @@ const Layout = ({isHomePage, children, isAmp = false}) => {
                 © {new Date().getFullYear()}, все права защищены
             </footer>
         </div>
-    )
+    </>
 }
 
 export default Layout
