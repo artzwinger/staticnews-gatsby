@@ -12,7 +12,7 @@ module.exports = {
         {
             resolve: `source-plugin`,
             options: {
-                backendUrl: 'https://pkh5reak9f.execute-api.eu-central-1.amazonaws.com',
+                backendUrl: 'https://hqv22fgtyh.execute-api.eu-central-1.amazonaws.com',
                 backendWebsiteCode: 'fastfastnews',
                 perPage: 50,
             },
