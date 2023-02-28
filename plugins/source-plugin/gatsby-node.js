@@ -115,7 +115,8 @@ exports.sourceNodes = async function sourceNodes(
     pluginOptions
 ) {
     const backendUrl = pluginOptions.backendUrl,
-        backendWebsiteCode = pluginOptions.backendWebsiteCode
+        backendWebsiteCode = pluginOptions.backendWebsiteCode,
+        perPage = pluginOptions.perPage
     const {createNode, touchNode, deleteNode} = actions
     const helpers = Object.assign({}, actions, {
         createContentDigest,
@@ -125,22 +126,32 @@ exports.sourceNodes = async function sourceNodes(
     const response = await fetch(
         `${backendUrl}/articles_to_publish/${backendWebsiteCode}`
     )
-
     const data = await response.json()
-
-    const ids = data.articles.map(article => article.id)
-
-    const published = await fetch(`${backendUrl}/publish_articles`, {
-        method: "post",
-        body: JSON.stringify({articles_ids: ids}),
-        headers: {"Content-Type": "application/json"}
-    })
+    const articles = data.articles
+    const totalPages = Math.ceil(data.total / perPage)
+    if (totalPages > 1) {
+        const promises = []
+        for (let i = 2; i <= totalPages; i++) {
+            promises.push(await fetch(
+                `${backendUrl}/articles_to_publish/${backendWebsiteCode}?page=${i}`
+            ))
+        }
+        await Promise.all(promises)
+            .then(responses => Promise.all(responses.map(response => response.json())))
+            .then(results => {
+                results.forEach((result) => {
+                    if (result.articles) {
+                        result.articles.forEach((article) => articles.push(article))
+                    }
+                })
+            })
+    }
 
     // touch nodes to ensure they aren't garbage collected
     getNodesByType(POST_NODE_TYPE).forEach(node => touchNode(node))
     // getNodesByType(TAG_NODE_TYPE).forEach(node => deleteNode(node))
 
-    data.articles.forEach(post => {
+    articles.forEach(post => {
         if (post.foreign_tags) {
             post.foreign_tags.forEach(tag => {
                 tag.id = tag.slug
