@@ -27,7 +27,7 @@ module.exports = {
             resolve: `gatsby-plugin-google-amp`,
             options: {
                 canonicalBaseUrl: 'https://www.fastfastnews.ru/',
-                components: ['amp-sidebar'],
+                components: ['amp-sidebar', 'amp-analytics'],
                 excludedPaths: ['/404*'],
                 pathIdentifier: '/amp/',
                 relAmpHtmlPattern: '{{canonicalBaseUrl}}{{pathIdentifier}}{{pathname}}',

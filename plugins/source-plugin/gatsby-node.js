@@ -179,18 +179,22 @@ exports.onCreateNode = async ({
     // because onCreateNode is called for all nodes, verify that you are only running this code on nodes created by your plugin
     if (node.internal.type === POST_NODE_TYPE) {
         if (node.image_url) {
-            // create a FileNode in Gatsby that gatsby-transformer-sharp will create optimized images for
-            const fileNode = await createRemoteFileNode({
-                // the url of the remote image to generate a node for
-                url: node.image_url,
-                getCache,
-                createNode,
-                createNodeId,
-                parentNodeId: node.id,
-            })
+            try {
+                // create a FileNode in Gatsby that gatsby-transformer-sharp will create optimized images for
+                const fileNode = await createRemoteFileNode({
+                    // the url of the remote image to generate a node for
+                    url: node.image_url,
+                    getCache,
+                    createNode,
+                    createNodeId,
+                    parentNodeId: node.id,
+                })
 
-            if (fileNode) {
-                createNodeField({node, name: `image_file_id`, value: fileNode.id})
+                if (fileNode) {
+                    createNodeField({node, name: `image_file_id`, value: fileNode.id})
+                }
+            } catch (e) {
+                console.log(e)
             }
         }
     }
