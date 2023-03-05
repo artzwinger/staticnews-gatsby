@@ -67,19 +67,14 @@ exports.createSchemaCustomization = ({schema, actions}) => {
         name: 'Post',
         interfaces: ['Node'],
         fields: {
+            image_url: {
+                type: 'String',
+            },
             source_link: {
                 type: 'String',
             },
             author: {
                 type: 'String',
-            },
-            featured_image: {
-                type: `File`,
-                extensions: {
-                    link: {
-                        from: `fields.image_file_id`,
-                    },
-                },
             },
             foreign_tags: {
                 type: [`Tag`],
@@ -148,8 +143,6 @@ exports.sourceNodes = async function sourceNodes(
     }
 
     // touch nodes to ensure they aren't garbage collected
-    getNodesByType(POST_NODE_TYPE).forEach(node => touchNode(node))
-    // getNodesByType(TAG_NODE_TYPE).forEach(node => deleteNode(node))
 
     articles.forEach(post => {
         if (post.foreign_tags) {
@@ -161,41 +154,4 @@ exports.sourceNodes = async function sourceNodes(
         }
         createNodeFromData(post, POST_NODE_TYPE, helpers)
     })
-}
-
-/**
- * ============================================================================
- * Transform remote file nodes
- * ============================================================================
- */
-
-exports.onCreateNode = async ({
-                                  actions: {createNode, createNodeField},
-                                  getCache,
-                                  createNodeId,
-                                  node,
-                              }) => {
-    // transform remote file nodes using Gatsby sharp plugins
-    // because onCreateNode is called for all nodes, verify that you are only running this code on nodes created by your plugin
-    if (node.internal.type === POST_NODE_TYPE) {
-        if (node.image_url) {
-            try {
-                // create a FileNode in Gatsby that gatsby-transformer-sharp will create optimized images for
-                const fileNode = await createRemoteFileNode({
-                    // the url of the remote image to generate a node for
-                    url: node.image_url,
-                    getCache,
-                    createNode,
-                    createNodeId,
-                    parentNodeId: node.id,
-                })
-
-                if (fileNode) {
-                    createNodeField({node, name: `image_file_id`, value: fileNode.id})
-                }
-            } catch (e) {
-                console.log(e)
-            }
-        }
-    }
 }

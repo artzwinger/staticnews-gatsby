@@ -29,6 +29,7 @@ const Layout = ({isHomePage, children, isAmp = false}) => {
     const ampMetrikaJson = JSON.stringify(ampMetrika, null, 2)
         .replace('\\', '')
         .replace('&quot', '"')
+    const home = isAmp ? '/amp/' : '/'
 
     return <>
         {isAmp && <amp-analytics type="metrika">
@@ -42,7 +43,7 @@ const Layout = ({isHomePage, children, isAmp = false}) => {
             <header className="global-header">
                 {isHomePage ? (
                     <h1 className="main-heading">
-                        <Link to="/">{siteName}</Link>
+                        <Link to={home}>{siteName}</Link>
                     </h1>
                 ) : (
                     <Link className="header-link-home" to="/">

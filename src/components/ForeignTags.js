@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "gatsby";
 
-export const ForeignTags = (post, isAmp = false) => {
+export const ForeignTags = ({post, isAmp = false}) => {
     if (!post.foreign_tags) {
         return null;
     }

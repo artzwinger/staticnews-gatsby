@@ -20,11 +20,17 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                         <span itemProp="author">{parse(post.author)}</span>
                         <small itemProp="datePublished">{post.foreign_created_at}</small>
                         <div className="post-tag-links">
-                            {ForeignTags(post)}
+                            {ForeignTags({post, isAmp: true})}
                         </div>
                     </div>
                     <div className="post-img-container">
-                        {AmpImage(post)}
+                        {post.image_url && <amp-img
+                            src={post.image_url}
+                            width={586}
+                            height={390}
+                            alt={post.title}
+                            layout="responsive"
+                        />}
                     </div>
                 </header>
 
@@ -78,16 +84,7 @@ export const pageQuery = graphql`
       }
       source_link
       author
-      featured_image {
-        childImageSharp {
-          fluid {
-            src
-            srcWebp
-            presentationWidth
-            presentationHeight
-          }
-        }
-      }
+      image_url
     }
     previous: post(id: { eq: $previousPostId }) {
       slug

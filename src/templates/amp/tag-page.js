@@ -36,9 +36,16 @@ const BlogIndex = ({
                                 itemType="http://schema.org/NewsArticle"
                             >
                                 <header>
-                                    {AmpImage(post)}
+                                    {post.image_url && <amp-img
+                                        src={post.image_url}
+                                        width={289}
+                                        height={192}
+                                        alt={post.title}
+                                        layout="responsive"
+                                    />}
+
                                     <div className="archive-post-tag-links">
-                                        {ForeignTags(post)}
+                                        {ForeignTags({post, isAmp: true})}
                                     </div>
                                     <h2>
                                         <Link to={`/amp/${post.slug}/`} itemProp="url">
@@ -94,19 +101,10 @@ export const pageQuery = graphql`
         slug
         foreign_created_at(formatString: "MMMM DD, YYYY", locale: "ru")
         title
+        image_url
         foreign_tags {
           name
           slug
-        }
-        featured_image {
-          childImageSharp {
-            fluid {
-              src
-              srcWebp
-              presentationWidth
-              presentationHeight
-            }
-          }
         }
       }
     }

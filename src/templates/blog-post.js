@@ -1,6 +1,5 @@
 import React from "react"
 import {graphql, Link} from "gatsby"
-import {GatsbyImage} from "gatsby-plugin-image"
 import parse from "html-react-parser"
 
 import Layout from "../components/layout"
@@ -9,11 +8,6 @@ import {SourceLink} from "../components/SourceLink";
 import {HeadComponent} from "../components/HeadComponent";
 
 const BlogPostTemplate = ({data: {previous, next, post}}) => {
-    const featured_image = {
-        data: post.featured_image?.childImageSharp?.gatsbyImageData,
-        alt: post.title,
-    }
-
     return (
         <Layout>
             <article
@@ -27,21 +21,11 @@ const BlogPostTemplate = ({data: {previous, next, post}}) => {
                         <span itemProp="author">{parse(post.author)}</span>
                         <small itemProp="datePublished">{post.foreign_created_at}</small>
                         <div className="post-tag-links">
-                            {ForeignTags(post)}
+                            {ForeignTags({post})}
                         </div>
                     </div>
                     <div className="post-img-container">
-                        {/* if we have a featured image for this post let's display it */}
-                        {featured_image?.data && (
-                            <GatsbyImage
-                                width={586}
-                                height={390}
-                                layout="constrained"
-                                image={featured_image.data}
-                                alt={featured_image.alt}
-                                style={{marginBottom: 20}}
-                            />
-                        )}
+                        {post.image_url && <img src={post.image_url} width={586} height={390} alt={post.title}/>}
                     </div>
                 </header>
 
@@ -95,18 +79,7 @@ export const pageQuery = graphql`
       }
       source_link
       author
-      featured_image {
-        childImageSharp {
-          gatsbyImageData(
-            quality: 100
-            placeholder: DOMINANT_COLOR
-            layout: CONSTRAINED
-            width: 586
-            height: 390
-            formats: [WEBP]
-          )
-        }
-      }
+      image_url
     }
     previous: post(id: { eq: $previousPostId }) {
       slug

@@ -3,7 +3,6 @@ import {graphql, Link} from "gatsby"
 import parse from "html-react-parser"
 
 import Layout from "../components/layout"
-import {GatsbyImage} from "gatsby-plugin-image";
 import {ForeignTags} from "../components/ForeignTags";
 import {HeadComponent} from "../components/HeadComponent";
 
@@ -28,11 +27,6 @@ const BlogIndex = ({
                 {posts.map(post => {
                     const title = post.title
 
-                    const featured_image = {
-                        data: post.featured_image?.childImageSharp?.gatsbyImageData,
-                        alt: post.title,
-                    }
-
                     return (
                         <div key={post.slug} className="post">
                             <article
@@ -41,18 +35,10 @@ const BlogIndex = ({
                                 itemType="http://schema.org/NewsArticle"
                             >
                                 <header>
-                                    {featured_image?.data && (
-                                        <GatsbyImage
-                                            width={289}
-                                            height={192}
-                                            layout="constrained"
-                                            image={featured_image.data}
-                                            alt={featured_image.alt}
-                                            style={{marginBottom: 5}}
-                                        />
-                                    )}
+                                    {post.image_url &&
+                                        <img src={post.image_url} width={289} height={192} alt={post.title}/>}
                                     <div className="archive-post-tag-links">
-                                        {ForeignTags(post)}
+                                        {ForeignTags({post})}
                                     </div>
                                     <h2>
                                         <Link to={`/${post.slug}`} itemProp="url">
@@ -109,21 +95,10 @@ export const pageQuery = graphql`
         slug
         foreign_created_at(formatString: "MMMM DD, YYYY", locale: "ru")
         title
+        image_url
         foreign_tags {
           name
           slug
-        }
-        featured_image {
-          childImageSharp {
-            gatsbyImageData(
-              quality: 100
-              placeholder: DOMINANT_COLOR
-              layout: CONSTRAINED
-              width: 289
-              height: 192
-              formats: [WEBP]
-            )
-          }
         }
       }
     }
